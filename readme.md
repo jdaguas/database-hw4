@@ -32,6 +32,7 @@ After running setx, restart your terminal.
 python app.py init
 python app.py sync
 python app.py validate
+python app.py incremental
 
 ## Running Tests
 
