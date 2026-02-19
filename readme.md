@@ -1,4 +1,4 @@
-# Sakila Sync
+# ORM Data Sync Process
 
 Syncs data from a MySQL Sakila database into a local SQLite analytics database using SQLAlchemy.
 
