@@ -34,7 +34,7 @@ def pick_free_category_id(engine) -> int:
             return candidate
     raise RuntimeError("No free category_id found in 200..255")
 
-
+gi
 @pytest.fixture
 def test_env(tmp_path: Path):
     mysql_url = os.environ.get("MYSQL_URL")
@@ -48,7 +48,7 @@ def test_env(tmp_path: Path):
     return env, db_path
 
 
-def test_init_creates_sqlite_and_tables(test_env):
+def test_init(test_env):
     env, db_path = test_env
 
     out = run_cli("init", env)
@@ -60,7 +60,7 @@ def test_init_creates_sqlite_and_tables(test_env):
     assert {"dim_date", "sync_state", "dim_film", "fact_rental", "fact_payment"} <= tables
 
 
-def test_full_load_populates_data(test_env):
+def test_full_load(test_env):
     env, db_path = test_env
 
     run_cli("init", env)
@@ -76,7 +76,7 @@ def test_full_load_populates_data(test_env):
     assert fact_payment > 0
 
 
-def test_incremental_new_data_category_appears_in_sqlite(test_env):
+def test_incremental_new_data(test_env):
     env, db_path = test_env
     engine = mysql_engine(env)
 
@@ -111,7 +111,7 @@ def test_incremental_new_data_category_appears_in_sqlite(test_env):
             c.execute(text("DELETE FROM category WHERE category_id = :id"), {"id": new_id})
 
 
-def test_incremental_updates_actor_is_updated_in_sqlite(test_env):
+def test_incremental_updates(test_env):
     env, db_path = test_env
     engine = mysql_engine(env)
 
@@ -121,7 +121,7 @@ def test_incremental_updates_actor_is_updated_in_sqlite(test_env):
     actor_id = 1
     new_last = "ZZ_TEST_LAST"
 
-    # Arrange: read original + update
+    
     with engine.connect() as c:
         original_last = c.execute(
             text("SELECT last_name FROM actor WHERE actor_id = :id"),
@@ -147,7 +147,7 @@ def test_incremental_updates_actor_is_updated_in_sqlite(test_env):
         assert got and got[0] == new_last
 
     finally:
-        # Cleanup revert
+        
         with engine.begin() as c:
             c.execute(
                 text("UPDATE actor SET last_name = :orig, last_update = NOW() WHERE actor_id = :id"),
