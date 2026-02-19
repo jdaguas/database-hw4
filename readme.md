@@ -37,3 +37,11 @@ python app.py incremental
 ## Running Tests
 
 pytest
+
+## Sources
+
+https://stackoverflow.com/questions/16981921/testing-command-line-programs-with-python
+https://stackoverflow.com/questions/18741784/testing-sqlalchemy-with-sqlite-in-memory
+https://docs.pytest.org/en/stable/how-to/tmp_path.html
+https://stackoverflow.com/questions/2894217/using-sqlite3-in-memory-database-for-unit-testing
+https://stackoverflow.com/questions/26298611/pytest-and-sqlalchemy-rollback-between-tests
